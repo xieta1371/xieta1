@@ -931,6 +931,10 @@ function createPoster(host,w,h,inModal){
     '13.for(Petal p : petals) p.display();','14.popMatrix(); num += 0.02;',
     '15. }','16. void mousePressed() { colorIndex=(colorIndex+1)%5; }'
   ];
+  let codeFont=11.5;
+  ctx.font=codeFont+'px Consolas, monospace';
+  const widestCode=Math.max.apply(null,codeLines.map(s=>ctx.measureText(s).width));
+  if(widestCode>290)codeFont=Math.max(8,Math.floor(codeFont*290/widestCode*10)/10);
   const explText='This code block is the core drawing function of my Processing visual programming, designed to generate an interactive dynamic ring artwork. It cyclically draws two concentric flowing rings with semi-transparent ellipses, decorated by a floating petal particle system.\n\nThrough coordinate transformation, array-based color management, class encapsulation, and time-driven animation logic, it achieves a visually expressive visualization with precise positioning and effects of breathing, rotating and color switching.\n\nMouse click cycles through 5 harmonious color themes, while mouse position controls the ring radius. The sine function drives real-time changes to size, position and rotation, creating a smooth, dreamy visual experience.';
   const sumText='This work integrates array color control, class encapsulation, loop animation and coordinate transformation. The interactive design of mouse click color switching and mouse-controlled radius makes the work more vivid. Through this project, I have a deeper understanding of the combination of code and art, and improved my ability to use Processing to create dynamic visual effects.';
   function roundBox(x,y,bw,bh,fill,stroke){
@@ -970,12 +974,8 @@ function createPoster(host,w,h,inModal){
     ctx.textBaseline='alphabetic';
     ctx.font='bold 26px Arial';ctx.fillStyle='rgb(200,180,230)';ctx.fillText(' Core Codes',40,190);
     roundBox(40,by,320,bh,'rgba(30,30,40,.85)','rgb(200,180,230)');
-    ctx.font='11.5px Consolas, monospace';ctx.fillStyle='#beaadc';ctx.textBaseline='top';
-    codeLines.forEach((s,i)=>{
-      let fs=11.5;ctx.font=fs+'px Consolas, monospace';
-      while(ctx.measureText(s).width>290&&fs>8){fs-=.5;ctx.font=fs+'px Consolas, monospace';}
-      ctx.fillText(s,55,by+20+i*33);
-    });
+    ctx.font=codeFont+'px Consolas, monospace';ctx.fillStyle='#beaadc';ctx.textBaseline='top';
+    codeLines.forEach((s,i)=>ctx.fillText(s,55,by+20+i*33));
     ctx.textBaseline='alphabetic';
     ctx.fillStyle='rgb(140,190,230)';ctx.fillText(' Program',385,190);
     roundBox(385,by,720,bh,'rgba(0,0,0,1)','rgb(140,190,230)');
