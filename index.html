@@ -920,6 +920,7 @@ function createPoster(host,w,h,inModal){
   const ctx=c.getContext('2d');
   let num=0,ci=0,mx=720,raf=0,last=0;
   const petals=Array.from({length:30},()=>({x:(Math.random()-.5)*760,y:(Math.random()-.5)*500,size:2+Math.random()*4,speed:.01+Math.random()*.03}));
+  const posterImgs=['img1.png','img2.png','img3.png'].map(name=>{const im=new Image();im.src=P(name);return im;});
   const codeLines=[
     '1.float num; int colorIndex = 0;','2.int[] colorsR = {255, 200, 255, 173};',
     '3.int[] colorsG = {182, 162, 253, 216};','4.int[] colorsB = {193, 255, 255, 230};',
@@ -955,17 +956,19 @@ function createPoster(host,w,h,inModal){
     ctx.fillStyle='#12141c';ctx.fillRect(0,0,1440,960);
     ctx.strokeStyle='rgba(40,40,50,.35)';ctx.lineWidth=1;
     for(let i=0;i<960;i+=20){ctx.beginPath();ctx.moveTo(0,i);ctx.lineTo(1440,i);ctx.stroke();}
-    ctx.textAlign='left';ctx.textBaseline='alphabetic';
+    ctx.textAlign='left';ctx.textBaseline='top';
     ctx.fillStyle='rgba(220,220,220,.72)';ctx.font='24px Arial';ctx.fillText('Open Source Programming | Teacher: ZHANG Fan',40,60);
     ctx.textAlign='right';ctx.fillText('ZHANG Wanqing | 2024001122',1400,60);
-    ctx.textAlign='center';ctx.fillStyle='#dedede';ctx.font='bold 48px Arial';ctx.fillText('Particle flower',720,130);
-    ctx.textAlign='right';ctx.fillStyle='rgba(220,220,220,.72)';ctx.font='16px Arial';ctx.fillText('Date: 2026.03.23',1400,110);
+    ctx.textAlign='center';ctx.fillStyle='#dedede';ctx.font='bold 48px Arial';ctx.fillText('Particle flower',720,110);
+    ctx.textAlign='right';ctx.fillStyle='rgba(220,220,220,.72)';ctx.font='16px Arial';ctx.fillText('Date: 2026.03.23',1400,100);
     ctx.textAlign='left';
     const by=200,bh=550;
+    ctx.textBaseline='alphabetic';
     ctx.font='bold 26px Arial';ctx.fillStyle='rgb(200,180,230)';ctx.fillText(' Core Codes',40,190);
     roundBox(40,by,320,bh,'rgba(30,30,40,.85)','rgb(200,180,230)');
-    ctx.font='11.5px Consolas, monospace';ctx.fillStyle='#beaadc';
+    ctx.font='11.5px Consolas, monospace';ctx.fillStyle='#beaadc';ctx.textBaseline='top';
     codeLines.forEach((s,i)=>ctx.fillText(s,55,by+20+i*33));
+    ctx.textBaseline='alphabetic';
     ctx.fillStyle='rgb(140,190,230)';ctx.fillText(' Program',385,190);
     roundBox(385,by,720,bh,'rgba(0,0,0,1)','rgb(140,190,230)');
     ctx.save();ctx.beginPath();ctx.rect(385,by,720,bh);ctx.clip();
@@ -985,18 +988,30 @@ function createPoster(host,w,h,inModal){
     ctx.stroke();ctx.restore();
     ctx.fillStyle='rgb(255,190,200)';ctx.fillText(' Explanation',1130,190);
     roundBox(1130,by,270,bh,'rgba(30,30,40,.85)','rgb(255,190,200)');
-    ctx.fillStyle='#dedede';ctx.font='15px Arial';ctx.textLeading=19;
-    wrap(explText,1145,by+22,240,19,26);
+    ctx.fillStyle='#dedede';ctx.font='15px Arial';ctx.textBaseline='top';
+    wrap(explText,1145,by+20,240,19,26);
+    ctx.textBaseline='alphabetic';
     ctx.fillStyle='#fff';ctx.font='bold 18px Arial';ctx.fillText(' Summary and Reflection',40,780);
     roundBox(40,790,1360,130,'rgba(30,30,40,.85)','#fff');
-    ctx.fillStyle='#dedede';ctx.font='11px Arial';wrap(sumText,55,808,900,14,3);
+    ctx.fillStyle='#dedede';ctx.font='11px Arial';ctx.textBaseline='top';
+    wrap(sumText,55,798,900,14,3);
     const ptsL=['• For loops with sine wave animation','• Class encapsulation for particle system','• Conditional judgment for color switching','• Coordinate transformation (translate/rotate/scale)'];
     const ptsR=['• Double dynamic flowing rings','• 5-theme interactive color switching','• Mouse-controlled interactive parameters','• Breathing & rotating visual effects'];
-    ctx.font='11px Arial';ptsL.forEach((s,i)=>ctx.fillText(s,55,850+i*15));ptsR.forEach((s,i)=>ctx.fillText(s,420,850+i*15));
+    ctx.font='11px Arial';ptsL.forEach((s,i)=>ctx.fillText(s,55,843+i*15));ptsR.forEach((s,i)=>ctx.fillText(s,340,843+i*15));
     for(let i=0;i<3;i++){
-      const x=1130+i*100;
-      ctx.strokeStyle='rgba(80,80,90,.8)';ctx.lineWidth=2;ctx.beginPath();ctx.roundRect(x,815,90,90,8);ctx.stroke();
-      ctx.fillStyle=`rgba(${col[0]},${col[1]},${col[2]},.5)`;ctx.font='34px Arial';ctx.textAlign='center';ctx.fillText('✿',x+45,875);ctx.textAlign='left';
+      const x=1080+i*100,y=815,s=90;
+      ctx.save();ctx.beginPath();ctx.roundRect(x,y,s,s,8);ctx.clip();
+      ctx.fillStyle='rgba(10,10,16,.95)';ctx.fillRect(x,y,s,s);
+      const im=posterImgs[i];
+      if(im&&im.complete&&im.naturalWidth){
+        ctx.drawImage(im,x,y,s,s);
+      }else{
+        ctx.fillStyle=`rgba(${col[0]},${col[1]},${col[2]},.35)`;ctx.font='11px Arial';ctx.textAlign='center';ctx.textBaseline='middle';
+        ctx.fillText('IMPORT '+(i+1),x+s/2,y+s/2);ctx.textAlign='left';
+      }
+      ctx.restore();
+      ctx.strokeStyle='rgba(80,80,90,.9)';ctx.lineWidth=2;ctx.beginPath();ctx.roundRect(x,y,s,s,8);ctx.stroke();
+      ctx.textBaseline='top';
     }
     num+=.02;
   }
