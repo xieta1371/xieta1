@@ -627,7 +627,7 @@ section[id],footer[id],div[id]{scroll-margin-top:84px}
         <ul class="mt-4 space-y-3 text-sm">
           <li><a href="#works" class="text-cyan hover:underline">塔罗牌卡牌设计 →</a></li>
           <li><a href="#works" class="text-lime hover:underline">二十四节气拟人文创 →</a></li>
-          <li><a href="../index.html" target="_blank" rel="noopener" class="text-violet hover:underline">湖北非遗 POI 可视化网页 ↗</a></li>
+          <li><a href="#works" target="_blank" rel="noopener" class="text-violet hover:underline">湖北非遗 POI 可视化网页 ↗</a></li>
         </ul>
       </div>
       <div class="reveal">
@@ -771,7 +771,7 @@ const PROJECTS = [
   { no:'05', cat:'电商设计', title:'奶粉淘宝界面图', en:'TAOBAO UI', year:'2025', imgs:[P('iPhone 14 & 15 Pro Max - 4.png')], fileName:'淘宝界面.png', desc:'手机端淘宝商品页界面视觉。' },
   { no:'06', cat:'海报视觉', title:'海报 · 春日自然 / 超时空速递', en:'POSTERS', year:'2025', imgs:[P('微信图片_20250724165327 1.png'),P('画板 4 1.png')], fileName:'海报 ×2', desc:'春日倒计时梦幻海报组与美团外卖霓虹都市海报。' },
   { no:'07', cat:'海报视觉', title:'化妆品海报', en:'COSMETICS', year:'2026', imgs:[P('微信图片_20261116200317_425_58.png'),P('画板 3 1.png')], fileName:'化妆品海报 ×2', desc:'绿色精华液与蓝白色系护肤品卖点海报成品。' },
-  { no:'08', cat:'信息可视化', title:'湖北十大非遗传承 POI 可视化', en:'ICH MAP', year:'2026', imgs:[P('张婉清2024001122，易千惠2024001117.png')], fileName:'湖北非遗POI.png', link:'../index.html', desc:'Mapbox 交互地图，收录 19 个非遗点位，支持巡航与弹窗。' },
+  { no:'08', cat:'信息可视化', title:'湖北十大非遗传承 POI 可视化', en:'ICH MAP', year:'2026', imgs:[P('张婉清2024001122，易千惠2024001117.png')], fileName:'湖北非遗POI.png', link:'#works', desc:'Mapbox 交互地图，收录 19 个非遗点位，支持巡航与弹窗。' },
   { no:'09', cat:'LORA', title:'LibLib 个人模型 LORA ×3', en:'LORA MODELS', year:'2026', imgs:[P('微信图片_20261116203141_427_58.png'),P('微信图片_20261116203310_428_58.png'),P('微信图片_20261116203358_429_58.png')], fileName:'LORA ×3', desc:'李星云、emo 机器人、儿童绘本插画三款自制 LORA。' },
   { no:'10', cat:'信息可视化', title:'孙悟空神话谱系图解', en:'MYTHOLOGY MAP', year:'2026', imgs:[P('Frame 1.png')], fileName:'齐天流韵.png', desc:'黑金长图：孙悟空神话谱系与跨媒介形象信息图表。' },
   { no:'11', cat:'卡牌插画', title:'二十四节气卡牌拟人文创', en:'SOLAR TERMS', year:'2026', imgs:[P('微信图片_20260617085548_5292_9.png')], fileName:'流转之诗.png', desc:'「流转之诗」节气拟人卡牌角色设计与国风插画展板。' },
@@ -790,7 +790,7 @@ const FEATURED = [
   { no:'02', tag:'FEATURED / 网页作品', title:'湖北十大非遗传承 POI 可视化',
     text:'基于 Mapbox 的湖北非遗工艺小镇与传承项目 POI 可视化地图，收录 19 个非遗点位，支持全景巡航、点位弹窗与路线显隐。点击下方按钮可直接打开完整网页作品。',
     facts:[['类型','交互式网页地图'],['数据','19 个非遗 POI'],['技术','Mapbox GL JS']],
-    link:'../index.html', imgs:[P('张婉清2024001122，易千惠2024001117.png')], fileName:'湖北非遗POI.png' }
+    link:'#works', imgs:[P('张婉清2024001122，易千惠2024001117.png')], fileName:'湖北非遗POI.png' }
 ];
 const FLOWS = [
   { no:'01', title:'IP 训练集制作', en:'IP TRAINING SET', desc:'小羊 IP 图像精修、多场景服装与两种训练集工作流。', imgs:[P('Frame 1973770303.png'),P('Frame 1973770304.png'),P('Frame 1973770305.png'),P('屏幕截图 2025-07-29 220916 1.png'),P('屏幕截图 2025-07-29 224012 1.png')] },
@@ -911,30 +911,67 @@ function renderFeatured(){
 }
 renderFeatured();
 
-/* ============ Processing 动态海报 → Canvas 实时复刻 ============ */
+/* ============ Processing 动态海报 → Canvas 实时复刻（含完整文字版式） ============ */
 function createPoster(host,w,h,inModal){
   const c=document.createElement('canvas');
-  c.width=w;c.height=h;
+  c.width=1440;c.height=960;
   c.style.cssText='display:block;width:100%;height:auto;background:#12141c;cursor:crosshair';
   host.innerHTML='';host.appendChild(c);
   const ctx=c.getContext('2d');
-  let num=0,ci=0,mx=w/2,raf=0,last=0;
-  const petals=Array.from({length:30},()=>({x:(Math.random()-.5)*w*.55,y:(Math.random()-.5)*h*.55,size:2+Math.random()*4,speed:.01+Math.random()*.02}));
-  c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();mx=(e.clientX-r.left)/r.width*w;});
+  let num=0,ci=0,mx=720,raf=0,last=0;
+  const petals=Array.from({length:30},()=>({x:(Math.random()-.5)*760,y:(Math.random()-.5)*500,size:2+Math.random()*4,speed:.01+Math.random()*.03}));
+  const codeLines=[
+    '1.float num; int colorIndex = 0;','2.int[] colorsR = {255, 200, 255, 173};',
+    '3.int[] colorsG = {182, 162, 253, 216};','4.int[] colorsB = {193, 255, 255, 230};',
+    '5.int addR = 150, addG = 230, addB = 180;','6.class Petal { /* particle class */ }',
+    '7.Petal[] petals = new Petal[30];','8.void setup() { size(640, 640); }',
+    '9.void draw() {','10.pushMatrix(); translate(width/2, height/2);',
+    '11.rotate(num*0.1); scale(1+sin(num)*0.05);','12.for(int i=0; i<360; i+=8) { /* rings */ }',
+    '13.for(Petal p : petals) p.display();','14.popMatrix(); num += 0.02;',
+    '15. }','16. void mousePressed() { colorIndex=(colorIndex+1)%5; }'
+  ];
+  const explText='This code block is the core drawing function of my Processing visual programming, designed to generate an interactive dynamic ring artwork. It cyclically draws two concentric flowing rings with semi-transparent ellipses, decorated by a floating petal particle system. Through coordinate transformation, array-based color management, class encapsulation, and time-driven animation logic, it achieves breathing, rotating and color switching effects. Mouse click cycles through 5 harmonious color themes while mouse position controls the ring radius.';
+  const sumText='This work integrates array color control, class encapsulation, loop animation and coordinate transformation. The interactive design of mouse click color switching and mouse-controlled radius makes the work more vivid. Through this project, I have a deeper understanding of the combination of code and art, and improved my ability to use Processing to create dynamic visual effects.';
+  function roundBox(x,y,bw,bh,fill,stroke){
+    ctx.fillStyle=fill;ctx.strokeStyle=stroke;ctx.lineWidth=2;
+    ctx.beginPath();ctx.roundRect(x,y,bw,bh,8);ctx.fill();ctx.stroke();
+  }
+  function wrap(text,x,y,maxW,lineH,maxLines){
+    const words=text.split(' ');let line='',yy=y,n=0;
+    for(const word of words){
+      const test=line?line+' '+word:word;
+      if(ctx.measureText(test).width>maxW&&line){ctx.fillText(line,x,yy);line=word;yy+=lineH;n++;if(n>=maxLines)return;}
+      else line=test;
+    }
+    if(line&&n<maxLines)ctx.fillText(line,x,yy);
+  }
+  c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();mx=(e.clientX-r.left)/r.width*1440;});
   c.addEventListener('click',()=>{ci=(ci+1)%5;});
   function frame(t){
     if(!c.isConnected){cancelAnimationFrame(raf);return;}
     raf=requestAnimationFrame(frame);
-    t=t||performance.now();
-    if(t-last<30)return;
-    last=t;
+    t=t||performance.now();if(t-last<30)return;last=t;
     const col=POSTER_COLORS[ci];
-    ctx.fillStyle='#12141c';ctx.fillRect(0,0,w,h);
+    ctx.fillStyle='#12141c';ctx.fillRect(0,0,1440,960);
     ctx.strokeStyle='rgba(40,40,50,.35)';ctx.lineWidth=1;
-    for(let i=0;i<h;i+=20){ctx.beginPath();ctx.moveTo(0,i);ctx.lineTo(w,i);ctx.stroke();}
-    ctx.save();ctx.translate(w/2,h/2);ctx.rotate(num*.1);
-    const scl=(1+Math.sin(num)*.05)*1.2;ctx.scale(scl,scl);
-    const maxX=100+(mx/w)*100;
+    for(let i=0;i<960;i+=20){ctx.beginPath();ctx.moveTo(0,i);ctx.lineTo(1440,i);ctx.stroke();}
+    ctx.textAlign='left';ctx.textBaseline='alphabetic';
+    ctx.fillStyle='rgba(220,220,220,.72)';ctx.font='24px Arial';ctx.fillText('Open Source Programming | Teacher: ZHANG Fan',40,60);
+    ctx.textAlign='right';ctx.fillText('ZHANG Wanqing | 2024001122',1400,60);
+    ctx.textAlign='center';ctx.fillStyle='#dedede';ctx.font='bold 48px Arial';ctx.fillText('Particle flower',720,130);
+    ctx.textAlign='right';ctx.fillStyle='rgba(220,220,220,.72)';ctx.font='16px Arial';ctx.fillText('Date: 2026.03.23',1400,110);
+    ctx.textAlign='left';
+    const by=200,bh=550;
+    ctx.font='bold 26px Arial';ctx.fillStyle='rgb(200,180,230)';ctx.fillText(' Core Codes',40,190);
+    roundBox(40,by,320,bh,'rgba(30,30,40,.85)','rgb(200,180,230)');
+    ctx.font='11.5px Consolas, monospace';ctx.fillStyle='#beaadc';
+    codeLines.forEach((s,i)=>ctx.fillText(s,55,by+20+i*33));
+    ctx.fillStyle='rgb(140,190,230)';ctx.fillText(' Program',385,190);
+    roundBox(385,by,720,bh,'rgba(0,0,0,1)','rgb(140,190,230)');
+    ctx.save();ctx.beginPath();ctx.rect(385,by,720,bh);ctx.clip();
+    ctx.translate(745,475);ctx.rotate(num*.1);
+    ctx.scale((1+Math.sin(num)*.05)*1.2,(1+Math.sin(num)*.05)*1.2);
+    const maxX=100+(mx/1440)*100;
     for(let i=0;i<360;i+=2){
       const rad=i*Math.PI/180,x=Math.sin(rad),y=Math.cos(rad);
       const R=150+Math.sin(i+num)*50;
@@ -943,13 +980,24 @@ function createPoster(host,w,h,inModal){
       ctx.beginPath();ctx.arc(x*R,y*R,d/2,0,Math.PI*2);ctx.fill();
       ctx.beginPath();ctx.arc(x*(38+Math.sin(i-num)*38),y*(50+Math.sin(i-num)*50),d/2,0,Math.PI*2);ctx.fill();
     }
-    ctx.strokeStyle=`rgba(${col[0]},${col[1]},${col[2]},.63)`;ctx.lineWidth=1;
-    ctx.beginPath();
-    for(const p of petals){
-      const px=p.x+Math.sin(num*p.speed)*10,py=p.y+Math.cos(num*p.speed)*10;
-      ctx.moveTo(px+p.size/2,py);ctx.arc(px,py,p.size/2,0,Math.PI*2);
-    }
+    ctx.strokeStyle=`rgba(${col[0]},${col[1]},${col[2]},.63)`;ctx.lineWidth=1;ctx.beginPath();
+    for(const p of petals){const px=p.x+Math.sin(num*p.speed)*10,py=p.y+Math.cos(num*p.speed)*10;ctx.moveTo(px+p.size/2,py);ctx.arc(px,py,p.size/2,0,Math.PI*2);}
     ctx.stroke();ctx.restore();
+    ctx.fillStyle='rgb(255,190,200)';ctx.fillText(' Explanation',1130,190);
+    roundBox(1130,by,270,bh,'rgba(30,30,40,.85)','rgb(255,190,200)');
+    ctx.fillStyle='#dedede';ctx.font='15px Arial';ctx.textLeading=19;
+    wrap(explText,1145,by+22,240,19,26);
+    ctx.fillStyle='#fff';ctx.font='bold 18px Arial';ctx.fillText(' Summary and Reflection',40,780);
+    roundBox(40,790,1360,130,'rgba(30,30,40,.85)','#fff');
+    ctx.fillStyle='#dedede';ctx.font='11px Arial';wrap(sumText,55,808,900,14,3);
+    const ptsL=['• For loops with sine wave animation','• Class encapsulation for particle system','• Conditional judgment for color switching','• Coordinate transformation (translate/rotate/scale)'];
+    const ptsR=['• Double dynamic flowing rings','• 5-theme interactive color switching','• Mouse-controlled interactive parameters','• Breathing & rotating visual effects'];
+    ctx.font='11px Arial';ptsL.forEach((s,i)=>ctx.fillText(s,55,850+i*15));ptsR.forEach((s,i)=>ctx.fillText(s,420,850+i*15));
+    for(let i=0;i<3;i++){
+      const x=1130+i*100;
+      ctx.strokeStyle='rgba(80,80,90,.8)';ctx.lineWidth=2;ctx.beginPath();ctx.roundRect(x,815,90,90,8);ctx.stroke();
+      ctx.fillStyle=`rgba(${col[0]},${col[1]},${col[2]},.5)`;ctx.font='34px Arial';ctx.textAlign='center';ctx.fillText('✿',x+45,875);ctx.textAlign='left';
+    }
     num+=.02;
   }
   frame();
@@ -1700,6 +1748,15 @@ gachaPocketClear.addEventListener('click',()=>{
   writeGachaPocket([]);renderPocket();updateGachaCounts();
 });
 renderCapsules();renderPocket();renderUserList();updateGachaCounts();
+
+/* 首屏完成后，后台低优先级预加载全部作品图片 */
+const PRELOAD_URLS=(()=>{const set=new Set();[PROJECTS,FEATURED,FLOWS].forEach(group=>group.forEach(item=>{if(item.img)set.add(item.img);(item.imgs||[]).forEach(src=>src&&set.add(src));}));return Array.from(set);})();
+function preloadAllImages(){
+  const run=()=>{let i=0;const step=()=>{if(i>=PRELOAD_URLS.length)return;const im=new Image();im.onload=im.onerror=()=>{i++;setTimeout(step,220);};im.src=PRELOAD_URLS[i++];};step();};
+  if(document.readyState==='complete')setTimeout(run,1500);
+  else window.addEventListener('load',()=>setTimeout(run,1500),{once:true});
+}
+preloadAllImages();
 </script>
 </body>
 </html>
