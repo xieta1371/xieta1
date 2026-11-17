@@ -926,10 +926,10 @@ function createPoster(host,w,h,inModal){
     '3.int[] colorsG = {182, 162, 253, 216};','4.int[] colorsB = {193, 255, 255, 230};',
     '5.int addR = 150, addG = 230, addB = 180;','6.class Petal { /* particle class */ }',
     '7.Petal[] petals = new Petal[30];','8.void setup() { size(640, 640); }',
-    '9.void draw() {','10.pushMatrix(); translate(w/2,h/2);',
-    '11.rotate(num*.1); scale(1+sin(num)*.05);','12.for(int i=0; i<360; i+=8) { /* rings */ }',
+    '9.void draw() {','10.pushMatrix(); translate(width/2, height/2);',
+    '11.rotate(num*0.1); scale(1+sin(num)*0.05);','12.for(int i=0; i<360; i+=8) { /* rings */ }',
     '13.for(Petal p : petals) p.display();','14.popMatrix(); num += 0.02;',
-    '15. }','16. void mousePressed(){ colorIndex++; }'
+    '15. }','16. void mousePressed() { colorIndex=(colorIndex+1)%5; }'
   ];
   const explText='This code block is the core drawing function of my Processing visual programming, designed to generate an interactive dynamic ring artwork. It cyclically draws two concentric flowing rings with semi-transparent ellipses, decorated by a floating petal particle system.\n\nThrough coordinate transformation, array-based color management, class encapsulation, and time-driven animation logic, it achieves a visually expressive visualization with precise positioning and effects of breathing, rotating and color switching.\n\nMouse click cycles through 5 harmonious color themes, while mouse position controls the ring radius. The sine function drives real-time changes to size, position and rotation, creating a smooth, dreamy visual experience.';
   const sumText='This work integrates array color control, class encapsulation, loop animation and coordinate transformation. The interactive design of mouse click color switching and mouse-controlled radius makes the work more vivid. Through this project, I have a deeper understanding of the combination of code and art, and improved my ability to use Processing to create dynamic visual effects.';
@@ -971,7 +971,11 @@ function createPoster(host,w,h,inModal){
     ctx.font='bold 26px Arial';ctx.fillStyle='rgb(200,180,230)';ctx.fillText(' Core Codes',40,190);
     roundBox(40,by,320,bh,'rgba(30,30,40,.85)','rgb(200,180,230)');
     ctx.font='11.5px Consolas, monospace';ctx.fillStyle='#beaadc';ctx.textBaseline='top';
-    codeLines.forEach((s,i)=>ctx.fillText(s,55,by+20+i*33));
+    codeLines.forEach((s,i)=>{
+      let fs=11.5;ctx.font=fs+'px Consolas, monospace';
+      while(ctx.measureText(s).width>290&&fs>8){fs-=.5;ctx.font=fs+'px Consolas, monospace';}
+      ctx.fillText(s,55,by+20+i*33);
+    });
     ctx.textBaseline='alphabetic';
     ctx.fillStyle='rgb(140,190,230)';ctx.fillText(' Program',385,190);
     roundBox(385,by,720,bh,'rgba(0,0,0,1)','rgb(140,190,230)');
