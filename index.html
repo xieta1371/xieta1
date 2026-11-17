@@ -926,25 +926,29 @@ function createPoster(host,w,h,inModal){
     '3.int[] colorsG = {182, 162, 253, 216};','4.int[] colorsB = {193, 255, 255, 230};',
     '5.int addR = 150, addG = 230, addB = 180;','6.class Petal { /* particle class */ }',
     '7.Petal[] petals = new Petal[30];','8.void setup() { size(640, 640); }',
-    '9.void draw() {','10.pushMatrix(); translate(width/2, height/2);',
-    '11.rotate(num*0.1); scale(1+sin(num)*0.05);','12.for(int i=0; i<360; i+=8) { /* rings */ }',
+    '9.void draw() {','10.pushMatrix(); translate(w/2,h/2);',
+    '11.rotate(num*.1); scale(1+sin(num)*.05);','12.for(int i=0; i<360; i+=8) { /* rings */ }',
     '13.for(Petal p : petals) p.display();','14.popMatrix(); num += 0.02;',
-    '15. }','16. void mousePressed() { colorIndex=(colorIndex+1)%5; }'
+    '15. }','16. void mousePressed(){ colorIndex++; }'
   ];
-  const explText='This code block is the core drawing function of my Processing visual programming, designed to generate an interactive dynamic ring artwork. It cyclically draws two concentric flowing rings with semi-transparent ellipses, decorated by a floating petal particle system. Through coordinate transformation, array-based color management, class encapsulation, and time-driven animation logic, it achieves breathing, rotating and color switching effects. Mouse click cycles through 5 harmonious color themes while mouse position controls the ring radius.';
+  const explText='This code block is the core drawing function of my Processing visual programming, designed to generate an interactive dynamic ring artwork. It cyclically draws two concentric flowing rings with semi-transparent ellipses, decorated by a floating petal particle system.\n\nThrough coordinate transformation, array-based color management, class encapsulation, and time-driven animation logic, it achieves a visually expressive visualization with precise positioning and effects of breathing, rotating and color switching.\n\nMouse click cycles through 5 harmonious color themes, while mouse position controls the ring radius. The sine function drives real-time changes to size, position and rotation, creating a smooth, dreamy visual experience.';
   const sumText='This work integrates array color control, class encapsulation, loop animation and coordinate transformation. The interactive design of mouse click color switching and mouse-controlled radius makes the work more vivid. Through this project, I have a deeper understanding of the combination of code and art, and improved my ability to use Processing to create dynamic visual effects.';
   function roundBox(x,y,bw,bh,fill,stroke){
     ctx.fillStyle=fill;ctx.strokeStyle=stroke;ctx.lineWidth=2;
     ctx.beginPath();ctx.roundRect(x,y,bw,bh,8);ctx.fill();ctx.stroke();
   }
   function wrap(text,x,y,maxW,lineH,maxLines){
-    const words=text.split(' ');let line='',yy=y,n=0;
-    for(const word of words){
-      const test=line?line+' '+word:word;
-      if(ctx.measureText(test).width>maxW&&line){ctx.fillText(line,x,yy);line=word;yy+=lineH;n++;if(n>=maxLines)return;}
-      else line=test;
+    let yy=y,n=0;
+    for(const para of String(text).split('\n')){
+      if(!para.trim()){yy+=lineH*.75;continue;}
+      const words=para.split(' ');let line='';
+      for(const word of words){
+        const test=line?line+' '+word:word;
+        if(ctx.measureText(test).width>maxW&&line){ctx.fillText(line,x,yy);line=word;yy+=lineH;n++;if(n>=maxLines)return;}
+        else line=test;
+      }
+      if(line&&n<maxLines){ctx.fillText(line,x,yy);yy+=lineH;n++;if(n>=maxLines)return;}
     }
-    if(line&&n<maxLines)ctx.fillText(line,x,yy);
   }
   c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();mx=(e.clientX-r.left)/r.width*1440;});
   c.addEventListener('click',()=>{ci=(ci+1)%5;});
