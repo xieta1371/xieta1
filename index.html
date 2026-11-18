@@ -936,7 +936,7 @@ function createPoster(host,w,h,inModal){
   const widestCode=Math.max.apply(null,codeLines.map(s=>ctx.measureText(s).width));
   if(widestCode>350)codeFont=Math.max(8,Math.floor(codeFont*350/widestCode*10)/10);
   const explText='This code block is the core drawing function of my Processing visual programming, designed to generate an interactive dynamic ring artwork. It cyclically draws two concentric flowing rings with semi-transparent ellipses, decorated by a floating petal particle system.\n\nThrough coordinate transformation, array-based color management, class encapsulation, and time-driven animation logic, it achieves a visually expressive visualization with precise positioning and effects of breathing, rotating and color switching.\n\nMouse click cycles through 5 harmonious color themes, while mouse position controls the ring radius. The sine function drives real-time changes to size, position and rotation, creating a smooth, dreamy visual experience.';
-  const sumText='This work integrates array color control, class encapsulation, loop animation and coordinate transformation. The interactive design of mouse click color switching and mouse-controlled radius makes the work more vivid. Through this project, I have a deeper understanding of the combination of code and art, and improved my ability to use Processing to create dynamic visual effects.';
+  const sumLines=['This work integrates array color control, class encapsulation, loop animation and coordinate transformation. The interactive design of mouse click color switching and mouse-controlled radius','makes the work more vivid. Through this project, I have a deeper understanding of the combination of code and art, and improved my ability to use Processing to create dynamic visual effects.'];
   function roundBox(x,y,bw,bh,fill,stroke){
     ctx.fillStyle=fill;ctx.strokeStyle=stroke;ctx.lineWidth=2;
     ctx.beginPath();ctx.roundRect(x,y,bw,bh,8);ctx.fill();ctx.stroke();
@@ -1020,11 +1020,11 @@ function createPoster(host,w,h,inModal){
     ctx.textBaseline='alphabetic';
     ctx.fillStyle='#fff';ctx.font='18px Arial';ctx.fillText(' Summary and Reflection',40,780);
     roundBox(40,790,1360,130,'rgba(30,30,40,.85)','#fff');
-    ctx.fillStyle='#dedede';ctx.font='11px Arial';ctx.textBaseline='top';
-    wrap(sumText,55,798,1330,15,2);
+    ctx.fillStyle='#dedede';ctx.font='lighter 11px Arial';ctx.textBaseline='top';
+    ctx.fillText(sumLines[0],55,798);ctx.fillText(sumLines[1],55,813);
     const ptsL=['• For loops with sine wave animation','• Class encapsulation for particle system','• Conditional judgment for color switching','• Coordinate transformation (translate/rotate/scale)'];
     const ptsR=['• Double dynamic flowing rings','• 5-theme interactive color switching','• Mouse-controlled interactive parameters','• Breathing & rotating visual effects'];
-    ctx.fillStyle='#fff';ctx.font='11px Arial';ctx.fillText(' CODE (Left):',55,840);
+    ctx.fillStyle='#fff';ctx.font='lighter 11px Arial';ctx.fillText(' CODE (Left):',55,840);
     ctx.fillText('PROGRAM (Center):',340,840);
     ctx.fillStyle='#dedede';ptsL.forEach((s,i)=>ctx.fillText(s,55,855+i*15));ptsR.forEach((s,i)=>ctx.fillText(s,340,855+i*15));
     for(let i=0;i<3;i++){
