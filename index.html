@@ -954,6 +954,25 @@ function createPoster(host,w,h,inModal){
       if(line&&n<maxLines){ctx.fillText(line,x,yy);yy+=lineH;n++;if(n>=maxLines)return;}
     }
   }
+  const EX=1145,ETOP=220,EMW=245,ELH=20,EAVAIL=518;
+  function explCount(){
+    ctx.font=explFont+'px Arial';
+    let lines=0;
+    for(const para of explText.split('\n')){
+      if(!para.trim()){lines+=0.75;continue;}
+      let line='';
+      for(const word of para.split(' ')){
+        const test=line?line+' '+word:word;
+        if(ctx.measureText(test).width>EMW&&line){lines++;line=word;}
+        else line=test;
+      }
+      if(line)lines++;
+    }
+    return lines;
+  }
+  let explFont=16;
+  while(explCount()*ELH>EAVAIL&&explFont>12)explFont-=0.25;
+  const explMaxLines=Math.floor(EAVAIL/ELH);
   c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();mx=(e.clientX-r.left)/r.width*1440;});
   c.addEventListener('click',()=>{ci=(ci+1)%5;});
   function frame(t){
@@ -996,8 +1015,8 @@ function createPoster(host,w,h,inModal){
     ctx.stroke();ctx.restore();
     ctx.fillStyle='rgb(255,190,200)';ctx.font='bold 26px Arial';ctx.fillText(' Explanation',1130,190);
     roundBox(1130,by,270,bh,'rgba(30,30,40,.85)','rgb(255,190,200)');
-    ctx.fillStyle='#dedede';ctx.font='16px Arial';ctx.textBaseline='top';
-    wrap(explText,1145,by+20,250,21,26);
+    ctx.fillStyle='#dedede';ctx.font=explFont+'px Arial';ctx.textBaseline='top';
+    wrap(explText,EX,ETOP,EMW,ELH,explMaxLines);
     ctx.textBaseline='alphabetic';
     ctx.fillStyle='#fff';ctx.font='18px Arial';ctx.fillText(' Summary and Reflection',40,780);
     roundBox(40,790,1360,130,'rgba(30,30,40,.85)','#fff');
