@@ -1021,10 +1021,12 @@ function createPoster(host,w,h,inModal){
     ctx.fillStyle='#fff';ctx.font='18px Arial';ctx.fillText(' Summary and Reflection',40,780);
     roundBox(40,790,1360,130,'rgba(30,30,40,.85)','#fff');
     ctx.fillStyle='#dedede';ctx.font='11px Arial';ctx.textBaseline='top';
-    wrap(sumText,55,798,900,15,3);
+    wrap(sumText,55,798,1330,15,2);
     const ptsL=['• For loops with sine wave animation','• Class encapsulation for particle system','• Conditional judgment for color switching','• Coordinate transformation (translate/rotate/scale)'];
     const ptsR=['• Double dynamic flowing rings','• 5-theme interactive color switching','• Mouse-controlled interactive parameters','• Breathing & rotating visual effects'];
-    ctx.font='11px Arial';ptsL.forEach((s,i)=>ctx.fillText(s,55,843+i*15));ptsR.forEach((s,i)=>ctx.fillText(s,340,843+i*15));
+    ctx.fillStyle='#fff';ctx.font='11px Arial';ctx.fillText(' CODE (Left):',55,840);
+    ctx.fillText('PROGRAM (Center):',340,840);
+    ctx.fillStyle='#dedede';ptsL.forEach((s,i)=>ctx.fillText(s,55,855+i*15));ptsR.forEach((s,i)=>ctx.fillText(s,340,855+i*15));
     for(let i=0;i<3;i++){
       const x=1080+i*100,y=815,s=90;
       ctx.save();ctx.beginPath();ctx.roundRect(x,y,s,s,8);ctx.clip();
